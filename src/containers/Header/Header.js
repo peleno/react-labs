@@ -7,27 +7,69 @@ import {
     BulbOutlined,
 } from "@ant-design/icons";
 import IconsWrapper from "../../components/IconsWrapper";
+import {
+    BrowserRouter as Router,
+    NavLink,
+    Route,
+    Switch,
+} from "react-router-dom";
+import Home from "../Home/Home";
+import { Catalog } from "../Catalog/Catalog";
 
 function Header() {
     return (
-        <StyledHeader title="Lamp Shop">
-            <div>
-                <BulbOutlined />
-                <p>Lamp Shop</p>
-            </div>
-            <div>
-                <ul>
-                    <ListItemWrapper>Home</ListItemWrapper>
-                    <ListItemWrapper>Catalog</ListItemWrapper>
-                    <ListItemWrapper>Cart</ListItemWrapper>
-                </ul>
-            </div>
-            <IconsWrapper>
-                <TwitterOutlined />
-                <FacebookOutlined />
-                <InstagramOutlined />
-            </IconsWrapper>
-        </StyledHeader>
+        <Router>
+            <StyledHeader title="Lamp Shop">
+                <div>
+                    <BulbOutlined />
+                    <p>Lamp Shop</p>
+                </div>
+                <div>
+                    <ul>
+                        <ListItemWrapper>
+                            <NavLink exact to="/" activeClassName="selected">
+                                Home
+                            </NavLink>
+                        </ListItemWrapper>
+                        <ListItemWrapper>
+                            <NavLink
+                                exact
+                                to="/catalog"
+                                activeClassName="selected"
+                            >
+                                Catalog
+                            </NavLink>
+                        </ListItemWrapper>
+                        <ListItemWrapper>
+                            <NavLink
+                                exact
+                                to="/cart"
+                                activeClassName="selected"
+                            >
+                                Cart
+                            </NavLink>
+                        </ListItemWrapper>
+                    </ul>
+                </div>
+                <IconsWrapper>
+                    <TwitterOutlined />
+                    <FacebookOutlined />
+                    <InstagramOutlined />
+                </IconsWrapper>
+            </StyledHeader>
+            <div style={{ height: 100 }}></div>
+            <Switch>
+                <Route path="/cart">
+                    <div>Hello it is cart</div>
+                </Route>
+                <Route path="/catalog">
+                    <Catalog />
+                </Route>
+                <Route path="/">
+                    <Home />
+                </Route>
+            </Switch>
+        </Router>
     );
 }
 

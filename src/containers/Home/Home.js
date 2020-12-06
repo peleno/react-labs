@@ -1,4 +1,3 @@
-// import { Button } from "antd";
 import React from "react";
 import {
     StyledButton,
@@ -12,7 +11,7 @@ import ImageLamp1 from "../../images/mid-century.jpg";
 import ImageLamp2 from "../../images/new-traditional.jpg";
 import ImageLamp3 from "../../images/industrial.jpg";
 import CardItem from "../../components/CardItem";
-
+import { RandomCard } from "../../components/CardItem.styled";
 const data = [
     {
         title: "Mid-Century must haves",
@@ -38,7 +37,7 @@ const Home = () => {
     return (
         <Container>
             <StyledSection>
-                <img src={HeroPicture} />
+                <img src={HeroPicture} alt="lamp in room" />
                 <StyledText>
                     <h2>Lamp Shop is Modern Like You.</h2>
                     <p>

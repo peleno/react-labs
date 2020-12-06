@@ -6,7 +6,7 @@ export const Wrapper = styled.footer`
     flex-direction: column;
     align-items: center;
     background-color: #efefef;
-    padding: 110px 0;
+    padding: 70px 0;
     margin-top: 30px;
 `;
 

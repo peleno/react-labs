@@ -1,14 +1,11 @@
 import { Button } from "antd";
 import styled from "styled-components";
+import "antd/dist/antd.css";
 
 export const StyledSection = styled.div`
-    /* background-image: url("/lumens-main.jpg"); */
-    margin-top: 120px;
-    /* height: 500px; */
     display: flex;
     > img {
         width: 1250px;
-        /* margin-left: 100px; */
     }
 `;
 

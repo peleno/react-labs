@@ -11,7 +11,6 @@ export const StyledHeader = styled.div`
     align-items: center;
     width: 100%;
     table-layout: fixed;
-    /* border-spacing: 10px; */
     > div {
         display: flex;
         align-items: center;
@@ -30,9 +29,15 @@ export const StyledHeader = styled.div`
         align-items: center;
         justify-content: space-around;
     }
+    a {
+        color: black;
+    }
 `;
 
 export const ListItemWrapper = styled.li`
     padding-right: 25px;
     font-size: 20px;
+    .selected {
+        color: #cabcab;
+    }
 `;

@@ -15,7 +15,7 @@ const CardItem = ({ title = "No title.", text, imageSrc, price }) => (
                 {price}
                 <FontAwesomeIcon icon={faHryvnia} style={{ marginLeft: 5 }} />
             </p>
-            <Button>Shop Now</Button>
+            <Button>View more</Button>
         </Footer>
     </StyledCard>
 );
