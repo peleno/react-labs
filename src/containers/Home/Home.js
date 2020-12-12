@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     StyledButton,
     StyledSection,
@@ -6,12 +6,14 @@ import {
     ItemsWrapper,
     Container,
 } from "./Home.styled";
+import { CardItems } from "./CardItems";
 import HeroPicture from "../../images/lumens-main.jpg";
 import ImageLamp1 from "../../images/mid-century.jpg";
 import ImageLamp2 from "../../images/new-traditional.jpg";
 import ImageLamp3 from "../../images/industrial.jpg";
-import CardItem from "../../components/CardItem";
-import { RandomCard } from "../../components/CardItem.styled";
+import ImageLamp4 from "../../images/pendants.jpg";
+import ImageLamp5 from "../../images/desk-lamps.jpg";
+import ImageLamp6 from "../../images/floor-lamps.jpg";
 const data = [
     {
         title: "Mid-Century must haves",
@@ -31,9 +33,28 @@ const data = [
         image: ImageLamp3,
         price: 1610,
     },
+    {
+        title: "Pendants",
+        text: "The jewels of any lighting scheme.",
+        image: ImageLamp4,
+        price: 610,
+    },
+    {
+        title: "Table & Desk Lamps",
+        text: "We've got every task covered.",
+        image: ImageLamp5,
+        price: 810,
+    },
+    {
+        title: "Floor Lamps",
+        text: "Time-tested practicality, modern style.",
+        image: ImageLamp6,
+        price: 1310,
+    },
 ];
 
 const Home = () => {
+    const [showAll, setShowAll] = useState(false);
     return (
         <Container>
             <StyledSection>
@@ -50,17 +71,15 @@ const Home = () => {
                 </StyledText>
             </StyledSection>
             <ItemsWrapper>
-                {data.map(({ title, text, image, price }, idx) => (
-                    <CardItem
-                        title={title}
-                        text={text}
-                        imageSrc={image}
-                        price={price}
-                        id={idx}
-                    />
-                ))}
+                {showAll ? (
+                    <CardItems items={data} />
+                ) : (
+                    <CardItems items={data.slice(0, 3)} />
+                )}
             </ItemsWrapper>
-            <StyledButton>Show More</StyledButton>
+            <StyledButton onClick={() => setShowAll(!showAll)}>
+                {!showAll ? <>Show More</> : <>Show Less</>}
+            </StyledButton>
         </Container>
     );
 };

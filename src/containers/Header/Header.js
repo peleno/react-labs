@@ -15,6 +15,7 @@ import {
 } from "react-router-dom";
 import Home from "../Home/Home";
 import { Catalog } from "../Catalog/Catalog";
+import { Item } from "../Item/Item";
 
 function Header() {
     return (
@@ -59,6 +60,9 @@ function Header() {
             </StyledHeader>
             <div style={{ height: 100 }}></div>
             <Switch>
+                <Route path="/item:itemId">
+                    <Item />
+                </Route>
                 <Route path="/cart">
                     <div>Hello it is cart</div>
                 </Route>

@@ -11,6 +11,8 @@ const roomTypes = [
     { label: "Office", value: "office" },
 ];
 
-export const RoomTypeFilter = () => {
-    return <Filter header="Room Type" options={roomTypes} />;
+export const RoomTypeFilter = ({ onChange }) => {
+    return (
+        <Filter header="Room Type" options={roomTypes} onChange={onChange} />
+    );
 };

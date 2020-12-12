@@ -1,4 +1,5 @@
-import React from "react";
+import { lamps } from "../FakeData";
+import React, { useState, useEffect } from "react";
 
 import "antd/dist/antd.css";
 import { Layout } from "antd";
@@ -26,68 +27,113 @@ import Lamp5 from "../../images/catalog/lamp5.jpeg";
 import Lamp6 from "../../images/catalog/lamp6.jpeg";
 import Lamp7 from "../../images/catalog/lamp7.jpeg";
 
+const lampImages = [Lamp1, Lamp2, Lamp3, Lamp4, Lamp5, Lamp6, Lamp7];
 const { Sider, Content } = Layout;
 
-const lamps = [
-    {
-        title: "Mid-Century must haves",
-        text: "This signature style never goes out of fashion.",
-        image: Lamp1,
-        price: 715,
-    },
-    {
-        title: "Mid-Century must haves",
-        text: "This signature style never goes out of fashion.",
-        image: Lamp2,
-        price: 715,
-    },
-    {
-        title: "Mid-Century must haves",
-        text: "This signature style never goes out of fashion.",
-        image: Lamp3,
-        price: 715,
-    },
-    {
-        title: "Mid-Century must haves",
-        text: "This signature style never goes out of fashion.",
-        image: Lamp4,
-        price: 715,
-    },
-    {
-        title: "Mid-Century must haves",
-        text: "This signature style never goes out of fashion.",
-        image: Lamp5,
-        price: 715,
-    },
-    {
-        title: "Mid-Century must haves",
-        text: "This signature style never goes out of fashion.",
-        image: Lamp6,
-        price: 715,
-    },
-    {
-        title: "Mid-Century must haves",
-        text: "This signature style never goes out of fashion.",
-        image: Lamp7,
-        price: 715,
-    },
-    {
-        title: "Mid-Century must haves",
-        text: "This signature style never goes out of fashion.",
-        image: Lamp1,
-        price: 715,
-    },
-];
-
 export const Catalog = () => {
+    const [filteredLamps, setFilteredLamps] = useState(lamps);
+    const [filters, setFilters] = useState({
+        brand: [],
+        roomType: [],
+        tableLampType: [],
+        style: [],
+        minPrice: 0,
+        maxPrice: 10000,
+    });
+    const [searchValue, setSearchValue] = useState("");
+
+    const getBrandFilterValues = (checkedValues) => {
+        setFilters({ ...filters, brand: checkedValues });
+    };
+
+    const getRoomTypeFilterValues = (checkedValues) => {
+        setFilters({ ...filters, roomType: checkedValues });
+    };
+
+    const getTableLampTypeFilterValues = (checkedValues) => {
+        setFilters({ ...filters, tableLampType: checkedValues });
+    };
+
+    const getStyleFilterValues = (checkedValues) => {
+        setFilters({ ...filters, style: checkedValues });
+    };
+
+    const getPriceSliderValues = (value) => {
+        setFilters({ ...filters, minPrice: value[0], maxPrice: value[1] });
+    };
+
+    const getSearchValue = (value, event) => {
+        setSearchValue(value);
+    };
+
+    useEffect(() => {
+        const brandFilter = (lamp) => {
+            return (
+                filters.brand.includes(lamp.brand.toLowerCase()) ||
+                filters.brand.length === 0
+            );
+        };
+
+        const roomTypeFilter = (lamp) => {
+            return (
+                filters.roomType.includes(lamp.room.toLowerCase()) ||
+                filters.roomType.length === 0
+            );
+        };
+
+        const tableLampTypeFilter = (lamp) => {
+            return (
+                filters.tableLampType.includes(lamp.type.toLowerCase()) ||
+                filters.tableLampType.length === 0
+            );
+        };
+
+        const styleFilter = (lamp) => {
+            return (
+                filters.style.includes(lamp.style.toLowerCase()) ||
+                filters.style.length === 0
+            );
+        };
+
+        const priceFilter = (lamp) => {
+            return (
+                filters.minPrice <= lamp.priceInUAH &&
+                filters.maxPrice >= lamp.priceInUAH
+            );
+        };
+
+        const searchByTextField = (lamp) => {
+            return (
+                lamp.brand.toLowerCase().search(searchValue.toLowerCase()) !==
+                    -1 ||
+                lamp.style.toLowerCase().search(searchValue.toLowerCase()) !==
+                    -1
+            );
+        };
+
+        const applyAllFilters = (lamps) => {
+            return lamps.filter((lamp) => {
+                return (
+                    brandFilter(lamp) &&
+                    roomTypeFilter(lamp) &&
+                    tableLampTypeFilter(lamp) &&
+                    styleFilter(lamp) &&
+                    priceFilter(lamp) &&
+                    searchByTextField(lamp)
+                );
+            });
+        };
+        setFilteredLamps(applyAllFilters(lamps));
+    }, [filters, searchValue]);
+
     return (
         <StyledLayout>
             <Sider theme="light">
-                <RoomTypeFilter />
-                <TableLampTypeFilter />
-                <BrandFilter />
-                <StyleFilter />
-                <PriceSlider />
+                <RoomTypeFilter onChange={getRoomTypeFilterValues} />
+                <TableLampTypeFilter onChange={getTableLampTypeFilterValues} />
+                <BrandFilter onChange={getBrandFilterValues} />
+                <StyleFilter onChange={getStyleFilterValues} />
+                <PriceSlider onChange={getPriceSliderValues} />
             </Sider>
             <Layout className="site-layout">
                 <Content style={{ backgroundColor: "white" }}>
@@ -96,16 +142,17 @@ export const Catalog = () => {
                         <StyledSearch
                             placeholder="I'm searching..."
                             allowClear
+                            onSearch={getSearchValue}
                         />
                     </StyledTopPanel>
                     <ItemsContainer>
-                        {lamps.map(({ title, text, image, price }, idx) => (
+                        {filteredLamps.map((lamp) => (
                             <CardItem
-                                title={title}
-                                text={text}
-                                imageSrc={image}
-                                price={price}
-                                id={idx}
+                                title={lamp.style + "Lamp" + lamp.id}
+                                text={"By " + lamp.brand}
+                                imageSrc={lampImages[lamp.id % 7]}
+                                price={lamp.priceInUAH}
+                                lamp={lamp}
                             />
                         ))}
                     </ItemsContainer>
