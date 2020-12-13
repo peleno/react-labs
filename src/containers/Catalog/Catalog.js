@@ -1,4 +1,4 @@
-import { lamps } from "../FakeData";
+// import { lamps } from "../FakeData";
 import React, { useState, useEffect } from "react";
 
 import "antd/dist/antd.css";
@@ -26,11 +26,13 @@ import Lamp4 from "../../images/catalog/lamp4.jpeg";
 import Lamp5 from "../../images/catalog/lamp5.jpeg";
 import Lamp6 from "../../images/catalog/lamp6.jpeg";
 import Lamp7 from "../../images/catalog/lamp7.jpeg";
-
+import { getAllLamps } from "../../api/Api";
+import { Loader } from "./Loader/Loader";
 const lampImages = [Lamp1, Lamp2, Lamp3, Lamp4, Lamp5, Lamp6, Lamp7];
 const { Sider, Content } = Layout;
 
 export const Catalog = () => {
+    const [lamps, setLamps] = useState([]);
     const [filteredLamps, setFilteredLamps] = useState(lamps);
     const [filters, setFilters] = useState({
         brand: [],
@@ -41,6 +43,10 @@ export const Catalog = () => {
         maxPrice: 10000,
     });
     const [searchValue, setSearchValue] = useState("");
+
+    useEffect(() => {
+        getAllLamps().then((res) => setLamps(res));
+    }, []);
 
     const getBrandFilterValues = (checkedValues) => {
         setFilters({ ...filters, brand: checkedValues });
@@ -69,8 +75,9 @@ export const Catalog = () => {
     useEffect(() => {
         const brandFilter = (lamp) => {
             return (
-                filters.brand.includes(lamp.brand.toLowerCase()) ||
-                filters.brand.length === 0
+                filters.brand.includes(
+                    lamp.brand.toLowerCase().replace(/\s/g, "")
+                ) || filters.brand.length === 0
             );
         };
 
@@ -90,8 +97,9 @@ export const Catalog = () => {
 
         const styleFilter = (lamp) => {
             return (
-                filters.style.includes(lamp.style.toLowerCase()) ||
-                filters.style.length === 0
+                filters.style.includes(
+                    lamp.style.toLowerCase().replace(/\s/g, "")
+                ) || filters.style.length === 0
             );
         };
 
@@ -124,7 +132,7 @@ export const Catalog = () => {
             });
         };
         setFilteredLamps(applyAllFilters(lamps));
-    }, [filters, searchValue]);
+    }, [filters, searchValue, lamps]);
 
     return (
         <StyledLayout>
@@ -146,15 +154,19 @@ export const Catalog = () => {
                         />
                     </StyledTopPanel>
                     <ItemsContainer>
-                        {filteredLamps.map((lamp) => (
-                            <CardItem
-                                title={lamp.style + "Lamp" + lamp.id}
-                                text={"By " + lamp.brand}
-                                imageSrc={lampImages[lamp.id % 7]}
-                                price={lamp.priceInUAH}
-                                lamp={lamp}
-                            />
-                        ))}
+                        {lamps.length === 0 ? (
+                            <Loader></Loader>
+                        ) : (
+                            filteredLamps.map((lamp) => (
+                                <CardItem
+                                    title={lamp.style + "Lamp" + lamp.id}
+                                    text={"By " + lamp.brand}
+                                    imageSrc={lampImages[lamp.id % 7]}
+                                    price={lamp.priceInUAH}
+                                    lamp={lamp}
+                                />
+                            ))
+                        )}
                     </ItemsContainer>
                 </Content>
             </Layout>

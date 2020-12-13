@@ -5,12 +5,12 @@ import { StyledCard, Footer } from "./CardItem.styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHryvnia } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom";
+
 const { Meta } = Card;
 
 const CardItem = (props) => {
     const { title = "No title.", text, imageSrc, price, lamp } = props;
     let history = useHistory();
-
     function handleClick() {
         history.push({
             pathname: "/item" + lamp.id,

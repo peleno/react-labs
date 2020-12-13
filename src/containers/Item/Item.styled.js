@@ -8,6 +8,7 @@ export const Layout = styled.div`
     > img {
         margin-left: 100px;
         width: 400px;
+        height: 400px;
     }
 `;
 

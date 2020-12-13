@@ -12,6 +12,8 @@ import {
     Price,
     PriceAndButtons,
 } from "./Item.styled";
+import "antd/dist/antd.css";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHryvnia } from "@fortawesome/free-solid-svg-icons";
 
@@ -39,7 +41,7 @@ export const Item = () => {
                     </LabeledInput>
                     <LabeledInput>
                         <h5>Color</h5>
-                        <StyledSelect>
+                        <StyledSelect placeholder="Color">
                             <Option value="black">Black</Option>
                             <Option value="white">White</Option>
                             <Option value="coral">Coral</Option>
