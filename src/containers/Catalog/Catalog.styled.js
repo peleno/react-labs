@@ -15,7 +15,7 @@ export const ItemsContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     margin: 10px;
-    background-color: "white";
+    /* background-color: "white"; */
 `;
 
 export const StyledTopPanel = styled.div`

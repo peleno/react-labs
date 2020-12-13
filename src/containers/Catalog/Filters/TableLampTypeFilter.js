@@ -5,6 +5,6 @@ const types = [
     { label: "Bedside", value: "bedside" },
     { label: "Task", value: "task" },
 ];
-export const TableLampTypeFilter = () => {
-    return <Filter header="Type" options={types} />;
+export const TableLampTypeFilter = ({ onChange }) => {
+    return <Filter header="Type" options={types} onChange={onChange} />;
 };

@@ -9,6 +9,6 @@ const brands = [
     { label: "Nordlux", value: "nordlux" },
 ];
 
-export const BrandFilter = () => {
-    return <Filter header="Brands" options={brands} />;
+export const BrandFilter = ({ onChange }) => {
+    return <Filter header="Brands" options={brands} onChange={onChange} />;
 };

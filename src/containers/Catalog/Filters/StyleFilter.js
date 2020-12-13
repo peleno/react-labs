@@ -8,6 +8,6 @@ const styles = [
     { label: "Design", value: "design" },
 ];
 
-export const StyleFilter = () => {
-    return <Filter header="Style" options={styles} />;
+export const StyleFilter = ({ onChange }) => {
+    return <Filter header="Style" options={styles} onChange={onChange} />;
 };
