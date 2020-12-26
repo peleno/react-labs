@@ -164,6 +164,7 @@ export const Catalog = () => {
                                     imageSrc={lampImages[lamp.id % 7]}
                                     price={lamp.priceInUAH}
                                     lamp={lamp}
+                                    key={lamp.id}
                                 />
                             ))
                         )}
