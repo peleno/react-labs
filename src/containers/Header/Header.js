@@ -16,6 +16,7 @@ import {
 import Home from "../Home/Home";
 import { Catalog } from "../Catalog/Catalog";
 import { Item } from "../Item/Item";
+import { Cart } from "../Cart/Cart";
 
 function Header() {
     return (
@@ -64,7 +65,7 @@ function Header() {
                     <Item />
                 </Route>
                 <Route path="/cart">
-                    <div>Hello it is cart</div>
+                    <Cart />
                 </Route>
                 <Route path="/catalog">
                     <Catalog />
