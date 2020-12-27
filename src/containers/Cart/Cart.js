@@ -34,7 +34,12 @@ export const Cart = () => {
                 <StyledButton onClick={() => history.goBack()}>
                     Go Back
                 </StyledButton>
-                <StyledButton>Continue</StyledButton>
+                <StyledButton
+                    type="primary"
+                    onClick={() => history.push("/checkout")}
+                >
+                    Continue
+                </StyledButton>
             </Buttons>
         </CartContainer>
     );
