@@ -17,6 +17,8 @@ import Home from "../Home/Home";
 import { Catalog } from "../Catalog/Catalog";
 import { Item } from "../Item/Item";
 import { Cart } from "../Cart/Cart";
+import { Checkout } from "../Checkout/Checkout";
+import { Success } from "../Success/Succes";
 
 function Header() {
     return (
@@ -61,6 +63,12 @@ function Header() {
             </StyledHeader>
             <div style={{ height: 100 }}></div>
             <Switch>
+                <Route path="/checkout">
+                    <Checkout />
+                </Route>
+                <Route path="/success">
+                    <Success />
+                </Route>
                 <Route path="/item:itemId">
                     <Item />
                 </Route>
