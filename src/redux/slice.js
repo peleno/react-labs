@@ -26,6 +26,9 @@ export const cartSlice = createSlice({
             const lampId = action.payload;
             delete state.lamps[lampId];
         },
+        clearCart: (state) => {
+            state.lamps = {};
+        },
     },
 });
 
@@ -34,6 +37,7 @@ export const {
     decrementLampCount,
     addLampToCart,
     removeLampFromCart,
+    clearCart,
 } = cartSlice.actions;
 
 export const selectLampsInCart = (state) => state.lampsInCart.lamps;

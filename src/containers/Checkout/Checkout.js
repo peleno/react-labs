@@ -1,10 +1,12 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { Formik, Field } from "formik";
+import { useDispatch } from "react-redux";
+import { clearCart } from "../../redux/slice";
+import { Formik } from "formik";
 import * as Yup from "yup";
 import "antd/dist/antd.css";
 import { Button, Space } from "antd";
-import { Form, Input, InputNumber } from "formik-antd";
+import { Form, Input } from "formik-antd";
 import { CheckoutContainer } from "./Checkout.styled";
 
 const formItemLayout = {
@@ -28,7 +30,7 @@ const formItemLayout = {
 
 export const Checkout = () => {
     const history = useHistory();
-
+    const dispatch = useDispatch();
     return (
         <CheckoutContainer>
             <h1>Checkout</h1>
@@ -76,7 +78,10 @@ export const Checkout = () => {
                         .max(100, "Too long address")
                         .required("Required"),
                 })}
-                onSubmit={(values) => history.push("/success")}
+                onSubmit={(values) => {
+                    dispatch(clearCart());
+                    history.push("/success");
+                }}
             >
                 {({ handleSubmit }) => (
                     <Form size="large" {...formItemLayout}>
